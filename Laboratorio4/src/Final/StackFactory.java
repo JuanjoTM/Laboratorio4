@@ -18,6 +18,6 @@ class StackFactory<E> {
         else if(entry.equals("V"))
             return new StackVector<E>(); //regresa Vector
         else
-            return new StackList<E>(type);
+            return new StackList<E>(type); //regresa Lista
    }
 }
