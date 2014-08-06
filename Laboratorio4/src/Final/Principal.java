@@ -9,9 +9,7 @@ package Final;
 ********************************************/
 public class Principal {
     public static void main(String[] args){
-            //Calculadora miCalculadora = new Calculadora("prueba");
-            //miCalculadora.separarGuardar();
-            //double resultado = miCalculadora.operar();
-            //System.out.println(resultado+"");
+            InterfazGrafica interfazPostFix = new InterfazGrafica();
+            interfazPostFix.setVisible(true);
     }
 }
