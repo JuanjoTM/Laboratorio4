@@ -1,4 +1,8 @@
 package Final;
+
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /*******************************************
   Universidad del Valle de Guatemala
   Algoritmos y Estructura de Datos
@@ -8,11 +12,16 @@ package Final;
   Fecha: 08/05/2014
 ********************************************/
 public class InterfazGrafica extends javax.swing.JFrame {
-
+    private Archivo miArchivo;
+    private Calculadora miCalculadora;
+    private Stack<String> miPila;
+    private StackFactory<String> miFactory;
     /**
      * Creates new form InterfazGrafica
      */
     public InterfazGrafica() {
+        miCalculadora = Calculadora.getInstance();
+        miFactory = new StackFactory();
         initComponents();
     }
 
@@ -303,6 +312,7 @@ public class InterfazGrafica extends javax.swing.JFrame {
         rdbSimple.setSelected(false);
         rdbSimple.setSelected(false);
         btnArchivo.setEnabled(true);
+        miPila = miFactory.getStack("V","NA");
     }//GEN-LAST:event_rdbVectorActionPerformed
 
     private void rdbArrayListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbArrayListActionPerformed
@@ -313,28 +323,41 @@ public class InterfazGrafica extends javax.swing.JFrame {
         rdbSimple.setSelected(false);
         rdbSimple.setSelected(false);
         btnArchivo.setEnabled(true);
+        miPila = miFactory.getStack("AL","NA");
     }//GEN-LAST:event_rdbArrayListActionPerformed
 
     private void btnArchivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnArchivoActionPerformed
-        btnCalcular.setEnabled(true);
-        rdbSimple.setEnabled(false);
-        rdbDoble.setEnabled(false);
-        rdbCircular.setEnabled(false);
-        rdbVector.setEnabled(false);
-        rdbList.setEnabled(false);
-        rdbArrayList.setEnabled(false);
+        JFileChooser dlg = new JFileChooser();
+        int option = dlg.showOpenDialog(this);
+        if(option==JFileChooser.APPROVE_OPTION){
+            String nombre = dlg.getSelectedFile().getPath();
+            miArchivo = new Archivo(nombre);
+            
+            btnCalcular.setEnabled(true);
+            rdbSimple.setEnabled(false);
+            rdbDoble.setEnabled(false);
+            rdbCircular.setEnabled(false);
+            rdbVector.setEnabled(false);
+            rdbList.setEnabled(false);
+            rdbArrayList.setEnabled(false);
+            
+        }
+        
     }//GEN-LAST:event_btnArchivoActionPerformed
 
     private void rdbSimpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbSimpleActionPerformed
         btnArchivo.setEnabled(true);
+        miPila = miFactory.getStack("L","S");
     }//GEN-LAST:event_rdbSimpleActionPerformed
 
     private void rdbDobleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbDobleActionPerformed
         btnArchivo.setEnabled(true);
+        miPila = miFactory.getStack("L","D");
     }//GEN-LAST:event_rdbDobleActionPerformed
 
     private void rdbCircularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdbCircularActionPerformed
         btnArchivo.setEnabled(true);
+        miPila = miFactory.getStack("L","C");
     }//GEN-LAST:event_rdbCircularActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
@@ -350,6 +373,11 @@ public class InterfazGrafica extends javax.swing.JFrame {
         btnClear.setEnabled(true);
         btnCalcular.setEnabled(false);
         btnArchivo.setEnabled(false);
+        miCalculadora.setPostfix(miArchivo.leerArchivo());
+        miCalculadora.separarGuardar(miPila);
+        miCalculadora.operar(miPila);
+        
+        JOptionPane.showMessageDialog(null, "Resultado: "+miCalculadora.getResultado());
     }//GEN-LAST:event_btnCalcularActionPerformed
 
 

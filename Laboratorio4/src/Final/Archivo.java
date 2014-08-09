@@ -16,7 +16,7 @@ public class Archivo {
 
     //Constructor
     public Archivo(String nombre){
-            archivo = new File(nombre+".txt");
+            archivo = new File(nombre);
             if(!archivo.exists()){
                     System.out.print("No existe el archivo");
             }

@@ -22,7 +22,7 @@ public class StackList<E> extends AbstractStack<E> {
     // post: the value is added to the stack
     //          will be popped next if no intervening push
     {
-            data.addLast(item);
+            data.addFirst(item);
     }
 
     public E pop()
