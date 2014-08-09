@@ -7,6 +7,7 @@ package Final;
   Carlos Cordero    Carnet 13152
   Fecha: 08/05/2014
 ********************************************/
+//Iniciando el programa
 public class Principal {
     public static void main(String[] args){
             InterfazGrafica interfazPostFix = new InterfazGrafica();
